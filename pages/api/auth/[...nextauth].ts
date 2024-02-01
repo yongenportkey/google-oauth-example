@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { getToken } from "next-auth/jwt";
+
+const secret = process.env.NEXTAUTH_SECRET;
 
 export default NextAuth({
   providers: [
@@ -10,12 +13,11 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, account, profile }) {
-      // Persist the OAuth access_token to the token right after signin
       if (account) {
-        token.accessToken = account.access_token;
-      }
+        const { id_token } = account;
 
-      console.log(token);
+        console.log(id_token);
+      }
 
       return token;
     },
