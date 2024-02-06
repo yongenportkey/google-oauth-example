@@ -2,6 +2,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+### Environment Variables
+
+Rename `.env.example` to `.env` and add:
+
+```bash
+GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+```
+
+Guide: https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid
+
+Configure the `Authorized JavaScript origins` to include `http://localhost` and `http://localhost:3000`.
+
+Configure the `Authorized redirect URIs` to include `http://localhost:3000/api/auth/callback/google`.
+
+In production, replace the values from `localhost` to the actual domain name.
+
+### Start Dev Server
+
 First, run the development server:
 
 ```bash
