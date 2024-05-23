@@ -1,5 +1,4 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import { set_nonce } from "./api/auth/[...nextauth]";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -21,10 +20,7 @@ export default function Home() {
   return (
     <>
       <p>Not signed in.</p>
-      <button onClick={() => {
-        set_nonce('4242424242424242424242424242424242424242424242424242424242424242');
-        signIn("google");
-      } }>Sign in</button>
+      <button onClick={() => signIn("google")}>Sign in</button>
     </>
   );
 }

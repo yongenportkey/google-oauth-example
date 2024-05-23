@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { generators } from "openid-client"
 
-var nonce = "";
+var nonce = "4242424242424242424242424242424242424242424242424242424242424242";
 
 export function set_nonce(nonce_: string) {
   nonce = nonce_;
@@ -31,6 +31,7 @@ export default NextAuth({
           // nonce: 'true',
         },
       },
+      checks: ["pkce", "state", "nonce"],
     }),
   ],
   callbacks: {
@@ -43,5 +44,8 @@ export default NextAuth({
 
       return token;
     },
+  },
+  session: {
+    strategy: "jwt",
   },
 });
