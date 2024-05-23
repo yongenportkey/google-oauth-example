@@ -1,11 +1,36 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+import { generators } from "openid-client"
+
+var nonce = "";
+
+export function set_nonce(nonce_: string) {
+  nonce = nonce_;
+}
+
+function nonce_getter(_?: number): string {
+  return nonce.toString();
+}
+
+generators.nonce = nonce_getter
+
+
 export default NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+          scope: "openid",
+          // This ensures that a nonce is used and that tokens are returned
+          // nonce: 'true',
+        },
+      },
     }),
   ],
   callbacks: {
